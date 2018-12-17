@@ -1,0 +1,45 @@
+Feature: Create new User and Deliver
+
+Scenario: Navigate to registration form
+    Given an unregister user
+    When user navigates to https://pro.packlink.es/registro
+    Then user sees "Email" is required
+    And user sees "Password" is required
+    And user sees "Tel" is required
+    And user sees "Shipment" is required
+    And user sees "Platform" is required
+    And user sees "Ecommerce" is required
+
+Scenario: Register new user
+    Given an unregister user
+    And user navigates to https://pro.packlink.es/registro
+    And inserts <"qacandidate+juanmtorrecilla@packlink.es"> into "Email"
+    And inserts <"Test123"> into "Password"
+    And inserts <"43243243"> into "Tel"
+    And selects <11 - 50> from "Shipment"
+    And selects <Amazon> from "Platform"
+    And selects <OsCommerce> from "Ecommerce"
+    And clicks "Terms&Cond"
+    And clicks "dataProcessing"
+    When clicks "Submit"
+    Then user is on "Home Screen"
+
+Scenario: Search
+    Given user is registered
+    And user is on "Home Screen"
+    When clicks "Crear Envio"
+    Then user is on "Detalles Envio"
+    And selects <"04810 - Madrid"> from "To"
+    And selects <"04810 - Madrid"> from "From"
+    And inserts <1> into "Peso"
+    And inserts <10> into "Alto"
+    And inserts <10> into "Largo"
+    And inserts <10> into "Ancho"
+    And clicks "Submit"
+
+Scenario: Select & Save Shipment
+    Given user is register
+    And clicks "Contratar Ahora"
+    When clicks "Guardar"
+    Then user is on "Home Screen"
+    And user sees saved shipment
